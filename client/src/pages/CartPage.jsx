@@ -5,6 +5,7 @@ import CreateBill from "../Components/cart/CreateBill";
 
 const CartPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  
   const dataSource = [
     {
       key: "1",
