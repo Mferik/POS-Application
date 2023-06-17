@@ -9,7 +9,7 @@ router.post("/add-bill", async (req, res) => {
     await newBill.save();
     res.status(200).json("Fatura başarıyla eklendi.");
   } catch (error) {
-    res.status(400).json(error);
+    res.status(500).json(error);
   }
 });
 
@@ -20,7 +20,7 @@ router.get("/get-all", async (req, res) => {
     const bills = await Bill.find();
     res.status(200).json(bills)
   } catch (error) {
-    res.status(400).json(error);
+    res.status(500).json(error);
   }
 });
 

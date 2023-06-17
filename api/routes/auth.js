@@ -16,7 +16,7 @@ router.post("/register", async (req, res) => {
     await newUser.save();
     res.status(200).json("Kullanıcı başarıyla oluşturuldu.");
   } catch (error) {
-    res.status(400).json(error);
+    res.status(500).json(error);
   }
 });
 
@@ -30,12 +30,12 @@ router.post("/login", async (req, res) => {
       user.password
     );
     if (!validPassword) {
-      res.status(403).send("Şifre doğru değil.");
+      res.status(403).json("Şifre doğru değil.");
     } else {
       res.status(200).json(user);
     }
   } catch (error) {
-    res.status(400).json(error);
+    res.status(500).json(error);
   }
 });
 
