@@ -7,18 +7,23 @@ import {
 import { useSelector, useDispatch } from "react-redux";
 import { deleteCart } from "../../redux/cartSlice";
 const CartTotals = () => {
-  const { cartItems } = useSelector((state) => state.cart);
-  const dispatch = useDispatch()
+  const cart = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
   return (
     <div className="cart h-full max-h-[calc(100vh_-_90px)] flex flex-col">
       <h2 className="bg-blue-600 text-center px-4 py-4 text-white font-bold tracking-wide">
         Sepetteki Ürünler
       </h2>
       <ul className="cart-items px-2 flex flex-col gap-y-3 pt-2 py-2 overflow-y-auto ">
-        {cartItems.map((item) => (
+        {cart.cartItems.map((item) => (
           <li className="cart-item flex justify-between" key={item._id}>
             <div className="flex items-center">
-              <img src={item.img} alt="" className="w-16 h-16 object-cover cursor-pointer" onClick={() => dispatch(deleteCart(item))}/>
+              <img
+                src={item.img}
+                alt=""
+                className="w-16 h-16 object-cover cursor-pointer"
+                onClick={() => dispatch(deleteCart(item))}
+              />
               <div className="flex flex-col ml-2">
                 <b>{item.title}</b>
                 <span>
@@ -48,17 +53,27 @@ const CartTotals = () => {
         <div className="border-b border-t">
           <div className="flex justify-between p-2">
             <b>Ara Toplam</b>
-            <span>99₺</span>
+            <span>{cart.total > 0 ? cart.total.toFixed(2) : 0}₺</span>
           </div>
           <div className="flex justify-between p-2">
-            <b>KDV</b>
-            <span className="text-red-800">+7.91₺</span>
+            <b>KDV %{cart.tax}</b>
+            <span className="text-red-700">
+              {(cart.total * cart.tax) / 100 > 0
+                ? `+${((cart.total * cart.tax) / 100).toFixed(2)}`
+                : 0}
+              ₺
+            </span>
           </div>
         </div>
         <div className="border-b mt-4">
           <div className="flex justify-between p-2">
             <b className="text-green-700 text-xl">Genel Toplam</b>
-            <span className="text-xl">111₺</span>
+            <span className="text-xl">
+              {cart.total + (cart.total * cart.tax) / 100 > 0
+                ? (cart.total + (cart.total * cart.tax) / 100).toFixed(2)
+                : 0}
+              ₺
+            </span>
           </div>
         </div>
         <div className="py-4 px-3 ">
