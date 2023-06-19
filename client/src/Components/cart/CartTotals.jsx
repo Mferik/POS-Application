@@ -1,11 +1,11 @@
-import { Button } from "antd";
+import { Button, message } from "antd";
 import {
   ClearOutlined,
   PlusCircleOutlined,
   MinusCircleOutlined,
 } from "@ant-design/icons";
 import { useSelector, useDispatch } from "react-redux";
-import { deleteCart , increase,decrease} from "../../redux/cartSlice";
+import { deleteCart , increase,decrease,reset} from "../../redux/cartSlice";
 const CartTotals = () => {
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
@@ -23,7 +23,10 @@ const CartTotals = () => {
                     src={item.img}
                     alt=""
                     className="w-16 h-16 object-cover cursor-pointer"
-                    onClick={() => dispatch(deleteCart(item))}
+                    onClick={() => {
+                      dispatch(deleteCart(item))
+                      message.success("Ürün Sepetten Silindi.")
+                    }}
                   />
                   <div className="flex flex-col ml-2">
                     <b>{item.title}</b>
@@ -50,10 +53,12 @@ const CartTotals = () => {
                       if (item.quantity === 1) {
                         if (window.confirm("Ürün Silinsin Mi?")) {
                           dispatch(decrease(item));
+                          message.success("Ürün Sepetten Silindi.")
                         }
                       }
                       if (item.quantity > 1) {
                         dispatch(decrease(item));
+                        message.success("Ürün Sepetten Silindi.")
                       }
                     }}
                   />
@@ -99,6 +104,13 @@ const CartTotals = () => {
             className="w-full mt-2 flex items-center justify-center"
             danger
             icon={<ClearOutlined />}
+            disabled={cart.cartItems.length === 0 ? true : false}
+            onClick={() => {
+              if(window.confirm("Sepeti temizlemeye emin misiniz?")){
+                dispatch(reset())
+                message.success("Sepet temizlendi")
+              }
+            }}
           >
             Temizle
           </Button>
