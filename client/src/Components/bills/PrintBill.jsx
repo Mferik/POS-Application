@@ -25,7 +25,7 @@ const PrintBill = ({ isModalOpen, setIsModalOpen, customer }) => {
               <div className="grid sm:grid-cols-4 grid-cols-3 gap-12">
                 <div className="text-md text-slate-500">
                   <p className="font-bold text-slate-700">Fatura Sahibi:</p>
-                  <p className="text-green-800">{customer.customerName}</p>
+                  <p className="text-green-800">{customer?.customerName}</p>
                   
                 </div>
                 <div className="text-md text-slate-500">
