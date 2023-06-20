@@ -16,18 +16,21 @@ const Login = () => {
         headers: { "Content-type": "application/json; charset=UTF-8" },
       });
 
-      const user = await res.json()
+      const user = await res.json();
 
       if (res.status === 200) {
-        localStorage.setItem("posUser",JSON.stringify({
-          username:user.username,
-          email:user.email
-        }))
+        localStorage.setItem(
+          "posUser",
+          JSON.stringify({
+            username: user.username,
+            email: user.email,
+          })
+        );
         message.success("Hoşgeldiniz");
         navigate("/");
       } else if (res.status === 404) {
         message.error("Kullanıcı Bulunamadı");
-      } else if ((res.status === 403)) {
+      } else if (res.status === 403) {
         message.error("Şifre Yanlış!");
       }
       setLoading(false);
@@ -36,7 +39,6 @@ const Login = () => {
       console.log(error);
       setLoading(false);
     }
-    
   };
   return (
     <div className="h-screen">

@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
-import { Badge, Input } from "antd";
+import { Link, useNavigate } from "react-router-dom";
+import { Badge, Input, message } from "antd";
 import {
   SearchOutlined,
   HomeOutlined,
@@ -12,8 +12,16 @@ import {
 import { useSelector } from "react-redux";
 
 const Header = () => {
-  const cart = useSelector((state) => state.cart)
-  console.log(cart);
+  const cart = useSelector((state) => state.cart);
+  const navigate = useNavigate();
+  const logOut = (e) => {
+    e.preventDefault();
+    if (window.confirm("Çıkış yapmak istediğinize emin misiniz?")) {
+      localStorage.removeItem("posUser");
+      navigate("/login");
+      message.success("Çıkış işlemi başarılı.");
+    }
+  };
   return (
     <div className="border-b mb-6">
       <header className="py-4 px-6 flex justify-between items-center gap-10">
@@ -38,7 +46,11 @@ const Header = () => {
             <HomeOutlined className="md:text-2xl text-xl" />
             <span className="md:text-xs text-[10px]">Ana Sayfa</span>
           </Link>
-          <Badge count={cart.cartItems.length} offset={[0, 0]} className="md:flex hidden">
+          <Badge
+            count={cart.cartItems.length}
+            offset={[0, 0]}
+            className="md:flex hidden"
+          >
             <Link
               to={"/cart"}
               className="menu-link flex flex-col hover:text-[#40a9ff] transition-all"
@@ -71,12 +83,17 @@ const Header = () => {
           <Link
             to={"/"}
             className="menu-link flex flex-col hover:text-[#40a9ff] transition-all"
+            onClick={logOut}
           >
             <LogoutOutlined className="md:text-2xl text-xl" />
             <span className="md:text-xs text-[10px]">Çıkış Yap</span>
           </Link>
         </div>
-        <Badge  count={cart.cartItems.length} offset={[0, 0]} className="md:hidden flex">
+        <Badge
+          count={cart.cartItems.length}
+          offset={[0, 0]}
+          className="md:hidden flex"
+        >
           <Link
             to={"/cart"}
             className="menu-link flex flex-col hover:text-[#40a9ff] transition-all"
