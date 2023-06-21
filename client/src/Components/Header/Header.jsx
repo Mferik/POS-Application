@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Badge, Input, message } from "antd";
 import {
   SearchOutlined,
@@ -11,8 +11,9 @@ import {
 } from "@ant-design/icons";
 import { useSelector } from "react-redux";
 
-const Header = ({setSearch}) => {
+const Header = ({ setSearch }) => {
   const cart = useSelector((state) => state.cart);
+  const { pathname } = useLocation();
   const navigate = useNavigate();
   const logOut = (e) => {
     e.preventDefault();
@@ -23,7 +24,6 @@ const Header = ({setSearch}) => {
     }
   };
 
-  
   return (
     <div className="border-b mb-6">
       <header className="py-4 px-6 flex justify-between items-center gap-10">
@@ -32,7 +32,12 @@ const Header = ({setSearch}) => {
             <h2 className="text-2xl font-bold md:text-4xl">MFE POS</h2>
           </Link>
         </div>
-        <div className="header-search flex-1 flex justify-center">
+        <div
+          className="header-search flex-1 flex justify-center"
+          onClick={() => {
+            pathname !== "/" && navigate("/");
+          }}
+        >
           <Input
             size="large"
             placeholder="Ürün arayabilirsiniz"
