@@ -1,14 +1,15 @@
-import { Button, Form, Input, Modal, Select, message } from "antd";
+import { Button, Form, Input, message, Modal, Select } from "antd";
 import React from "react";
 
 const Add = ({
   isAddModalOpen,
   setIsAddModalOpen,
   categories,
-  setProducts,
   products,
+  setProducts,
 }) => {
   const [form] = Form.useForm();
+
   const onFinish = (values) => {
     try {
       fetch("http://localhost:5000/api/products/add-product", {
@@ -31,6 +32,7 @@ const Add = ({
       console.log(error);
     }
   };
+
   return (
     <Modal
       title="Yeni Ürün Ekle"
@@ -42,28 +44,32 @@ const Add = ({
         <Form.Item
           name="title"
           label="Ürün Adı"
-          rules={[{ required: true, message: "Ürün adı zorunludur" }]}
+          rules={[{ required: true, message: "Ürün Adı Alanı Boş Geçilemez!" }]}
         >
-          <Input placeholder="Bir ürün adı giriniz" />
+          <Input placeholder="Ürün adı giriniz." />
         </Form.Item>
         <Form.Item
           name="img"
           label="Ürün Görseli"
-          rules={[{ required: true, message: "Ürün görseli zorunludur" }]}
+          rules={[
+            { required: true, message: "Ürün Görseli Alanı Boş Geçilemez!" },
+          ]}
         >
-          <Input placeholder="Bir ürün görseli giriniz" />
+          <Input placeholder="Ürün görseli giriniz." />
         </Form.Item>
         <Form.Item
           name="price"
           label="Ürün Fiyatı"
-          rules={[{ required: true, message: "Ürün fiyatı zorunludur" }]}
+          rules={[
+            { required: true, message: "Ürün Fiyatı Alanı Boş Geçilemez!" },
+          ]}
         >
-          <Input placeholder="Bir ürün fiyatı giriniz" />
+          <Input placeholder="Ürün fiyatı giriniz." />
         </Form.Item>
         <Form.Item
           name="category"
           label="Kategori Seç"
-          rules={[{ required: true, message: "Kategori alanı zorunludur" }]}
+          rules={[{ required: true, message: "Kategori Alanı Boş Geçilemez!" }]}
         >
           <Select
             showSearch
@@ -82,7 +88,7 @@ const Add = ({
         </Form.Item>
         <Form.Item className="flex justify-end mb-0">
           <Button type="primary" htmlType="submit">
-            Ekle
+            Oluştur
           </Button>
         </Form.Item>
       </Form>
