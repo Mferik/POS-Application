@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import Header from "../Components/Header/Header";
-import { Button, Input, Space, Table } from "antd";
+import { Button, Input, Space, Spin, Table } from "antd";
 
 import { useState } from "react";
 import PrintBill from "../Components/bills/PrintBill";
@@ -9,7 +9,7 @@ import Highlighter from "react-highlight-words";
 
 const BillPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [billItems, setBillItems] = useState([]);
+  const [billItems, setBillItems] = useState();
   const [customer, setCustomer] = useState();
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
@@ -203,7 +203,8 @@ const BillPage = () => {
   return (
     <>
       <Header />
-      <div className="px-6">
+      {billItems ? (
+        <div className="px-6">
         <h1 className="text-4xl font-bold text-center mb-4">Faturalar</h1>
         <Table
           dataSource={billItems}
@@ -217,6 +218,7 @@ const BillPage = () => {
           rowKey="_id"
         />
       </div>
+      ) : <Spin size="large" className="absolute top-1/2 h-screen w-screen flex justify-center"/>}
       <PrintBill
         isModalOpen={isModalOpen}
         setIsModalOpen={setIsModalOpen}
