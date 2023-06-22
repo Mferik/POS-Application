@@ -29,7 +29,7 @@ const Header = ({ setSearch }) => {
       <header className="py-4 px-6 flex justify-between items-center gap-10">
         <div className="logo">
           <Link to={"/"}>
-            <h2 className="text-2xl font-bold md:text-4xl">MFE POS</h2>
+            <h2 className="text-2xl font-bold md:text-4xl text-blue-900">MFE POS</h2>
           </Link>
         </div>
         <div
