@@ -14,8 +14,8 @@ function App() {
   const cart = useSelector((state) => state.cart);
 
   useEffect(() => {
-    localStorage.setItem("cart",JSON.stringify(cart))
-  },[cart])
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }, [cart]);
   return (
     <BrowserRouter>
       <Routes>
