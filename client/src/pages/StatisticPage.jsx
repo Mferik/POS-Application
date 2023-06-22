@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import Header from "../Components/Header/Header";
 import StatisticCard from "../Components/statistics/StatisticCard";
 import { Area, Pie } from "@ant-design/plots";
+import { Spin } from "antd";
 
 const StatisticPage = () => {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState();
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
@@ -88,7 +89,8 @@ const StatisticPage = () => {
   return (
     <>
       <Header />
-      <div className="px-6 md:pb-0 pb-20">
+      {data ? (
+        <div className="px-6 md:pb-0 pb-20">
         <h1 className="text-4xl font-bold text-center mb-4">İstatistikler</h1>
         <div className="statistic-section">
           <h2 className="text-lg">
@@ -127,6 +129,7 @@ const StatisticPage = () => {
           </div>
         </div>
       </div>
+      ):<Spin size="large" className="absolute top-1/2 h-screen w-screen flex justify-center"/>} 
     </>
   );
 };
