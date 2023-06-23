@@ -7,7 +7,7 @@ import { Spin } from "antd";
 const StatisticPage = () => {
   const [data, setData] = useState();
   const [products, setProducts] = useState([]);
-
+  const user = JSON.parse(localStorage.getItem("posUser"));
   useEffect(() => {
     const getProducts = async () => {
       try {
@@ -92,45 +92,52 @@ const StatisticPage = () => {
       <h1 className="text-4xl font-bold text-center mb-4">İSTATİSTİKLER</h1>
       {data ? (
         <div className="px-6 md:pb-0 pb-20">
-        
-        <div className="statistic-section">
-          <h2 className="text-lg">
-            Hoş geldin{" "}
-            <span className="text-green-700 font-bold text-xl">admin</span>{" "}
-          </h2>
-          <div className="statistic-cards grid xl:grid-cols-4 md:grid-cols-2 my-10 md:gap-10 gap-4">
-            <StatisticCard
-              title={"Toplam Müşteri"}
-              amount={data?.length}
-              img={"images/user.png"}
-            />
-            <StatisticCard
-              title={"Toplam Kazanç"}
-              amount={totalAmount()}
-              img={"images/money.png"}
-            />
-            <StatisticCard
-              title={"Toplam Satış"}
-              amount={data?.length}
-              img={"images/sale.png"}
-            />
-            <StatisticCard
-              title={"Toplam Ürün"}
-              amount={products?.length}
-              img={"images/product.png"}
-            />
-          </div>
-          <div className="flex justify-between gap-10 lg:flex-row flex-col items-center">
-            <div className="lg:w-1/2 lg:h-full h-72 ">
-              <Area {...config} />
+          <div className="statistic-section overflow-scroll max-h-screen">
+            <h2 className="text-lg">
+              Hoş geldin{" "}
+              <span className="text-green-700 font-bold text-xl">
+                {user.username}
+              </span>
+              .
+            </h2>
+            <div className="statistic-cards grid xl:grid-cols-4 md:grid-cols-2 my-10 md:gap-10 gap-4">
+              <StatisticCard
+                title={"Toplam Müşteri"}
+                amount={data?.length}
+                img={"images/user.png"}
+              />
+              <StatisticCard
+                title={"Toplam Kazanç"}
+                amount={totalAmount()}
+                img={"images/money.png"}
+              />
+              <StatisticCard
+                title={"Toplam Satış"}
+                amount={data?.length}
+                img={"images/sale.png"}
+              />
+              <StatisticCard
+                title={"Toplam Ürün"}
+                amount={products?.length}
+                img={"images/product.png"}
+              />
             </div>
-            <div className="lg:w-1/2 lg:h-full h-72 ">
-              <Pie {...config2} />
+            <div className="flex justify-between gap-10 lg:flex-row flex-col items-center">
+              <div className="lg:w-1/2 lg:h-80 h8h-80">
+                <Area {...config} />
+              </div>
+              <div className="lg:w-1/2 lg:h-80 h-72">
+                <Pie {...config2} />
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      ):<Spin size="large" className="absolute top-1/2 h-screen w-screen flex justify-center"/>} 
+      ) : (
+        <Spin
+          size="large"
+          className="absolute top-1/2 h-screen w-screen flex justify-center"
+        />
+      )}
     </>
   );
 };
