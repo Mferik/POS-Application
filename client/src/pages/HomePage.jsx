@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Header from "../Components/Header/Header";
+import Header from '../Components/Header/Header'
 import CartTotals from "../Components/cart/CartTotals";
 import Categories from "../Components/categories/Categories";
 import Products from "../Components/products/Products";
@@ -49,7 +49,7 @@ const HomePage = () => {
     <>
       <Header setSearch={setSearch} />
       {products && categories ? (
-        <div className="home px-6 flex md:flex-row flex-col justify-between gap-10 md:pb-0 pb-24 h-screen">
+        <div className="home px-6 flex md:flex-row flex-wrap justify-between gap-10 md:pb-0 pb-24 h-screen">
         <div className="categories overflow-auto max-h-[calc(100vh_-_112px)] md:pb-10">
           <Categories
             categories={categories}
