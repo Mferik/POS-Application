@@ -1,9 +1,5 @@
 import { Button, message } from "antd";
-import {
-  ClearOutlined,
-  PlusCircleOutlined,
-  MinusCircleOutlined,
-} from "@ant-design/icons";
+import { ClearOutlined, PlusOutlined, MinusOutlined } from "@ant-design/icons";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { deleteCart, increase, decrease, reset } from "../../redux/cartSlice";
@@ -46,17 +42,7 @@ const CartTotals = () => {
                       type="primary"
                       size="small"
                       className="w-full flex items-center justify-center !rounded-full"
-                      icon={<PlusCircleOutlined />}
-                      onClick={() => dispatch(increase(item))}
-                    />
-                    <span className="font-bold w-6 inline-block text-center">
-                      {item.quantity}
-                    </span>
-                    <Button
-                      type="primary"
-                      size="small"
-                      className="w-full flex items-center justify-center !rounded-full"
-                      icon={<MinusCircleOutlined />}
+                      icon={<MinusOutlined />}
                       onClick={() => {
                         if (item.quantity === 1) {
                           if (window.confirm("Ürün Silinsin Mi?")) {
@@ -68,6 +54,17 @@ const CartTotals = () => {
                           dispatch(decrease(item));
                         }
                       }}
+                    />
+                    <span className="font-bold w-6 inline-block text-center">
+                      {item.quantity}
+                    </span>
+
+                    <Button
+                      type="primary"
+                      size="small"
+                      className="w-full flex items-center justify-center !rounded-full"
+                      icon={<PlusOutlined />}
+                      onClick={() => dispatch(increase(item))}
                     />
                   </div>
                 </li>
